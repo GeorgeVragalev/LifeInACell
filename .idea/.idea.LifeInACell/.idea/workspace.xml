@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="cf93f0d4-7670-486f-b08b-f3e81b88c4e1" name="Changes" comment="first commit" />
+    <list default="true" id="cf93f0d4-7670-486f-b08b-f3e81b88c4e1" name="Changes" comment="first commit">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.LifeInACell/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.LifeInACell/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Instantiater.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Instantiater.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,7 +70,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1651411384160</updated>
-      <workItem from="1651411393368" duration="8802000" />
+      <workItem from="1651411393368" duration="10364000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1651421686383</created>

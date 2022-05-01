@@ -11,14 +11,14 @@ public class Instantiater : MonoBehaviour
 	int[ , ] thiefArray;
 	int[ , ] policemanArray;
 	int[ , ] prisonArray;
-	int[ , ] fertileArray;
+	int[ , ] doughnutArray;
 
 	public int gridHeight;
 	private int gridWidth;
 
 	private float cellSize;
 	private float prisonSize;
-	private float fertileSize;
+	private float doughnutSize;
 
 	public Regeneration regeneration;
 	public Prison prison;
@@ -32,15 +32,15 @@ public class Instantiater : MonoBehaviour
 
     	cellSize = (Camera.main.orthographicSize * 2) / gridHeight;
     	prisonSize = (Camera.main.orthographicSize * 2) / gridHeight;
-    	fertileSize = (Camera.main.orthographicSize * 2) / gridHeight;
+    	doughnutSize = (Camera.main.orthographicSize * 2) / gridHeight;
 
     	thiefArray = new int[gridHeight, gridWidth];
     	policemanArray = new int[gridHeight, gridWidth];
     	prisonArray = new int[gridHeight, gridWidth];
-    	fertileArray = new int[gridHeight, gridWidth];
+    	doughnutArray = new int[gridHeight, gridWidth];
     	
-    	GenerateFertile();
-    	GenerateLava();
+    	GenerateDoughnuts();
+    	GeneratePrison();
         InvokeRepeating("NewGenerationUpdate", generationInterval, generationInterval);
     }
 
@@ -83,7 +83,7 @@ public class Instantiater : MonoBehaviour
 	    return true;
 	}
     
-    private void GenerateFertile()
+    private void GenerateDoughnuts()
     {
     	foreach (GameObject cell in GameObject.FindGameObjectsWithTag("Regeneration"))
     	{
@@ -91,26 +91,27 @@ public class Instantiater : MonoBehaviour
     	}
     	for (int i = 0; i < 3; i++)
     	{
-    		fertileArray[Random.Range(20, 70), Random.Range(30, 120)] = 1;
+    		doughnutArray[Random.Range(20, 70), Random.Range(30, 120)] = 1;
     	}
 
     	for (int i = 0; i < gridHeight; i++)
     	{
     		for (int j = 0; j < gridWidth; j++ )
     		{
-    			if (fertileArray[i, j] == 0) continue;
-    			Vector3 fertilePosition = new Vector3(
-    				j * fertileSize + fertileSize/2,
-    				(fertileSize * gridHeight) - (i * fertileSize + fertileSize/2),
+    			if (doughnutArray[i, j] == 0) continue;
+    			Vector3 Position = new Vector3(
+    				j * doughnutSize + doughnutSize/2,
+    				(doughnutSize * gridHeight) - (i * doughnutSize + doughnutSize/2),
     				0
     			);
+                
 
-    			Regeneration clone3 = Instantiate(regeneration, fertilePosition, Quaternion.identity) as Regeneration;
+    			Regeneration clone3 = Instantiate(regeneration, Position, Quaternion.identity) as Regeneration;
     		}
     	}
     }
 
-    private void GenerateLava()
+    private void GeneratePrison()
     {
     	foreach (GameObject cell in GameObject.FindGameObjectsWithTag("Prison"))
     	{
@@ -123,7 +124,7 @@ public class Instantiater : MonoBehaviour
     		int row = Random.Range(20, 70);
     		int col = Random.Range(30, 120);
 
-    		if (!CheckOverlapping(fertileArray, row, col))
+    		if (!CheckOverlapping(doughnutArray, row, col))
     		{
     			prisonArray[row, col] = 1;
     			count++;
@@ -135,13 +136,13 @@ public class Instantiater : MonoBehaviour
     		for (int j = 0; j < gridWidth; j++ )
     		{
     			if (prisonArray[i, j] == 0) continue;
-    			Vector3 lavaPosition = new Vector3(
+    			Vector3 Position = new Vector3(
     				j * prisonSize + prisonSize/2,
     				(prisonSize * gridHeight) - (i * prisonSize + prisonSize/2),
     				0
     			);
 
-    			Prison clone1 = Instantiate(prison, lavaPosition, Quaternion.identity) as Prison;
+    			Prison clone1 = Instantiate(prison, Position, Quaternion.identity) as Prison;
     		}
     	}
     }
@@ -163,13 +164,13 @@ public class Instantiater : MonoBehaviour
     		for (int j = 0; j < gridWidth; j++ )
     		{
     			if (arr[i, j] == 0) continue;
-    			Vector3 cellPosition = new Vector3(
+    			Vector3 Position = new Vector3(
     				j * cellSize + cellSize/2,
     				(cellSize * gridHeight) - (i * cellSize + cellSize/2),
     				0
     			);
 
-    			T clone = Instantiate(animal, cellPosition, Quaternion.identity) as T;    			
+    			T clone = Instantiate(animal, Position, Quaternion.identity) as T;    			
     		}
     	}
     }
@@ -210,14 +211,8 @@ public class Instantiater : MonoBehaviour
     	return arr;	// GOING TO THE NEXT GEN!!! 
     }
 
-    //thief - monkey chicken
-    //policeman - and crocodile
-    
-	//thieves will get caught 
-	// monkeys will get caught by chickens
-	//swap crocodile for chicken  policeman
-	// swap chicken for monkey theif
-    private void CatchThieves() 
+    //thieves will get caught 
+	private void CatchThieves() 
     {
         for(int i = 1; i < gridHeight - 1; i++)
         {
@@ -291,9 +286,7 @@ public class Instantiater : MonoBehaviour
         }
     }
 
-    //thieves will kill a policeman
-    //swap chicken for thief (monkey array)
-    //swap monkeyarray for policeman (chicken array) 
+    //thieves will beat a policeman
     private void BeatPolice()
     {
     	for(int i = 1; i < gridHeight - 1; i++)
