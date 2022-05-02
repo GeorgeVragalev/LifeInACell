@@ -1,3 +1,4 @@
+DONE BY: Craevscaia Valentina, Vragalev George, Gherman Adrian
 Short description for our project:
 1. We have 2 types of cells : Thieves and Police
 2. We added some rules for them: 
